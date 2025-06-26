@@ -1,0 +1,46 @@
+package com.example.ejecicioClase_II_spring_jpa.entidades;
+
+import jakarta.persistence.*;
+import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
+
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@Entity
+@Table(name = "oficinas")
+public class Oficina {
+    @Id
+    private String codigoOficina;
+
+    @Column(name = "ciudad", nullable = false, length = 30)
+    private String ciudad;
+
+    @Column(name = "pais", length = 50)
+    private String pais;
+
+    @ColumnDefault("NULL")
+    @Column(name = "region", length = 50)
+    private String region;
+
+    @Column(name = "codigo_postal", length = 10)
+    private String codigoPostal;
+
+    @Column(name = "telefono", length = 20)
+    private String telefono;
+
+    @Column(name = "linea_direccion1", length = 50)
+    private String lineaDireccion1;
+
+    @ColumnDefault("NULL")
+    @Column(name = "linea_direccion2", length = 50)
+    private String lineaDireccion2;
+
+    @OneToMany(mappedBy = "oficina", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Empleado> empleados = new LinkedHashSet<>();
+
+}
